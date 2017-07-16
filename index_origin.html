@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+<div ng-controller="myCtrl">
+    <input type="checkbox" ng-model="a.value"  ng-checked="a.checked" ng-change="a.select()">A<br>
+    <input type="radio" ng-disabled="b.disabled">B<br>
+    <input type="checkbox" ng-checked="c.checked">C<br>
+    <input type="checkbox"  ng-model="d.value" ng-checked="d.checked" ng-change="d.select()"> D<br>
+</div>
+</body>
+<script>
+    var myController = function($scope) {
+        $scope.a = {
+            checked: false,
+            value:'a',
+            select: function() {
+                this.checked = !this.checked;
+                $scope.b.disabled = this.checked;
+            }
+        };
+        $scope.b = {
+           disabled: false
+        };
+        $scope.c = {
+            checked: false
+        };
+        $scope.d = {
+            checked: false,
+            value:'d',
+            select: function() {
+                this.checked = !this.checked;
+                $scope.a.checked = this.checked;
+                $scope.c.checked = this.checked;
+            }
+        }
+    };
+    var myApp = angular.module("myApp",[]);
+    myApp.controller('myCtrl',myController);
+</script>
+</html>
